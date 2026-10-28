@@ -1,26 +1,136 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cubos 3D</title>
-
-    <style>
-        html,
-        body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #000;
-        }
-
-        canvas {
-            display: block;
-        }
-    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#0b1020">
+    <title>Laboratorio 3D | Graficación</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <script type="module" src="main.js"></script>
+    <nav class="navbar app-nav">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#"><span class="brand-mark"><i
+                        class="bi bi-box"></i></span>Laboratorio <strong>3D</strong></a>
+            <span class="nav-course"><span class="status-dot"></span> ACTIVIDAD DE GRAFICACIÓN</span>
+        </div>
+    </nav>
+    <main class="container">
+        <section class="hero-section">
+            <div>
+                <div class="eyebrow"><span></span> VISUALIZACIÓN INTERACTIVA</div>
+                <h1>Explora el espacio<br><em>en tres dimensiones.</em></h1>
+                <p class="hero-description">Una escena interactiva con tres cubos tridimensionales. Observa sus
+                    rotaciones, cambia la velocidad y experimenta con sus movimientos.</p>
+                <div class="hero-tags"><span><i class="bi bi-boxes"></i> Objetos 3D</span><span><i
+                            class="bi bi-arrow-repeat"></i> Animación en tiempo real</span><span><i
+                            class="bi bi-palette"></i> Color y luz</span></div>
+            </div>
+            <div class="hero-badge"><span class="badge-icon"><i class="bi bi-stars"></i></span>
+                <div><strong>Escena en vivo</strong><small>Renderizado 3D interactivo</small></div>
+            </div>
+        </section>
+        <section class="workspace-card">
+            <header class="workspace-header">
+                <div>
+                    <div class="section-kicker">VISTA PREVIA</div>
+                    <h2>Escena tridimensional</h2>
+                    <p>Arrastra dentro de la escena para cambiar la vista.</p>
+                </div><span class="live-pill"><span class="status-dot"></span> EN VIVO</span>
+            </header>
+            <div class="scene-wrap">
+                <div id="scene" aria-label="Escena 3D con cubos verde, azul y rojo"></div>
+                <div class="scene-overlay top-overlay"><i class="bi bi-mouse"></i> Arrastra para explorar</div>
+                <div class="scene-overlay bottom-overlay"><i class="axis-x"></i> X <i class="axis-y"></i> Y <i
+                        class="axis-z"></i> Z</div>
+                <div id="scene-error" class="scene-error d-none"><i class="bi bi-exclamation-triangle"></i><span>No se
+                        pudo cargar la escena 3D. Verifica tu conexión a internet y abre el proyecto con Live
+                        Server.</span></div>
+            </div>
+            <div class="control-panel">
+                <div class="control-label"><span class="control-icon"><i class="bi bi-speedometer2"></i></span>
+                    <div><strong>Velocidad de animación</strong><small>Ajusta el ritmo de rotación de los cubos</small>
+                    </div>
+                </div>
+                <div class="speed-control"><span class="speed-caption">LENTA</span><input id="speedRange"
+                        class="form-range" type="range" min=".25" max="2.5" step=".25" value="1"
+                        aria-label="Velocidad de animación"><span class="speed-caption">RÁPIDA</span><span
+                        id="speedValue" class="speed-value">1.0×</span></div>
+                <div class="control-actions"><button id="toggleButton" class="btn btn-primary action-btn"><i
+                            class="bi bi-pause-fill"></i><span>Pausar</span></button><button id="resetButton"
+                        class="btn btn-outline-light action-btn"><i
+                            class="bi bi-arrow-counterclockwise"></i><span>Reiniciar vista</span></button></div>
+            </div>
+        </section>
+        <section class="cube-info-section">
+            <div class="info-heading">
+                <div class="section-kicker">OBJETOS DE LA ESCENA</div>
+                <h2>Tres cubos, tres movimientos.</h2>
+            </div>
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <article class="cube-info-card"><span class="cube-color green"></span>
+                        <div>
+                            <h3>Cubo verde</h3>
+                            <p>Rotación equilibrada en los ejes X y Y.</p>
+                        </div><b>01</b>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="cube-info-card"><span class="cube-color blue"></span>
+                        <div>
+                            <h3>Cubo azul</h3>
+                            <p>Movimiento más dinámico sobre el eje X.</p>
+                        </div><b>02</b>
+                    </article>
+                </div>
+                <div class="col-md-4">
+                    <article class="cube-info-card"><span class="cube-color red"></span>
+                        <div>
+                            <h3>Cubo rojo</h3>
+                            <p>Giro marcado sobre el eje Y.</p>
+                        </div><b>03</b>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand"><span class="brand-mark"><i class="bi bi-box"></i></span>
+                    <div><strong>Laboratorio 3D</strong><small>Actividad académica · Graficación</small></div>
+                </div>
+                <div class="footer-date"><i class="bi bi-calendar3"></i> Fecha de consulta: <strong
+                        id="currentDate">Cargando fecha…</strong></div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="row gy-3 footer-details">
+                <div class="col-md-6 col-lg-4"><span class="footer-label">CREADORA</span>
+                    <p>Itzel Mendoza Sánchez</p>
+                    <p class="muted">No. de control: 26201715</p>
+                </div>
+                <div class="col-md-6 col-lg-5"><span class="footer-label">INSTITUCIÓN</span>
+                    <p>Tecnológico Nacional de México</p>
+                    <p class="muted">Campus: Instituto Tecnológico de Pachuca</p>
+                </div>
+                <div class="col-md-6 col-lg-3"><span class="footer-label">MATERIA</span>
+                    <p>Graficación</p>
+                    <p class="muted">Proyecto de cubos 3D</p>
+                </div>
+            </div>
+            <div class="footer-bottom"><span>© <span id="currentYear"></span> Itzel Mendoza Sánchez. Todos los derechos
+                    reservados.</span><span>Diseñado para aprender y experimentar <i
+                        class="bi bi-heart-fill heart"></i></span></div>
+        </div>
+    </footer>
+    <!-- Cargamos Three.js como script clásico para evitar problemas de módulos al abrir el proyecto. -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.min.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
